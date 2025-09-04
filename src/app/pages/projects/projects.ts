@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { ProjectCardComponent } from '../../shared/cards/project-card';
+import { MovieCardComponent } from '../../shared/cards/movie-card';
 
 type Project = {
   title: string;
@@ -8,7 +9,8 @@ type Project = {
   tag?: string;
   tech?: string[];
   imageUrl?: string;
-  demoUrl?: string;
+  demoUrl?: string;       // lo seguimos aceptando por compatibilidad
+  websiteUrl?: string;    // para abrir la web (MovieLibrary)
   repoUrl?: string;
   gallery?: string[];
 };
@@ -16,7 +18,7 @@ type Project = {
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [NgFor, ProjectCardComponent],
+  imports: [NgFor, NgIf, ProjectCardComponent, MovieCardComponent],
   template: `
     <section class="space-y-10">
       <!-- Cabecera -->
@@ -90,17 +92,36 @@ type Project = {
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <ng-container *ngFor="let p of others">
           <div class="space-y-2">
-            <app-project-card
-              [title]="p.title"
-              [description]="p.description"
-              [tag]="p.tag"
-              [tech]="p.tech || []"
-              [imageUrl]="p.imageUrl"
-              [demoUrl]="p.demoUrl"
-              [repoUrl]="p.repoUrl"
-              [gallery]="p.gallery"
-              class="rounded-2xl"
-            ></app-project-card>
+
+            <!-- Si el proyecto tiene websiteUrl (MovieLibrary), usamos MovieCard -->
+            <ng-container *ngIf="p.websiteUrl; else defaultCard">
+              <app-movie-card
+                [title]="p.title"
+                [description]="p.description"
+                [tag]="p.tag"
+                [tech]="p.tech || []"
+                [imageUrl]="p.imageUrl"
+                [websiteUrl]="p.websiteUrl"
+                [repoUrl]="p.repoUrl"
+                [gallery]="p.gallery"
+                class="rounded-2xl"
+              ></app-movie-card>
+            </ng-container>
+
+            <!-- Tarjeta por defecto -->
+            <ng-template #defaultCard>
+              <app-project-card
+                [title]="p.title"
+                [description]="p.description"
+                [tag]="p.tag"
+                [tech]="p.tech || []"
+                [imageUrl]="p.imageUrl"
+                [demoUrl]="p.demoUrl"
+                [repoUrl]="p.repoUrl"
+                [gallery]="p.gallery"
+                class="rounded-2xl"
+              ></app-project-card>
+            </ng-template>
 
             <!-- Enlace explícito bajo cada tarjeta -->
             <a *ngIf="p.repoUrl" [href]="p.repoUrl" target="_blank" rel="noopener"
@@ -120,8 +141,8 @@ export class ProjectsComponent {
       description: 'Web personal con Angular + Tailwind. Rutas standalone, diseño responsive y buen rendimiento.',
       tag: 'Web',
       tech: ['Angular', 'Tailwind'],
-      imageUrl: '/assets/projects/ic_angular.png'
-      // repoUrl: 'https://github.com/verarv1999/portfolio' // ← lo añades cuando lo subas
+      imageUrl: '/assets/projects/ic_angular.png',
+      repoUrl: 'https://github.com/verarv1999/Portfolio'
     },
     {
       title: 'FinanPie',
@@ -137,6 +158,7 @@ export class ProjectsComponent {
       tag: 'Web',
       tech: ['Angular', 'RxJS', 'REST API'],
       imageUrl: '/assets/projects/movie.png',
+      websiteUrl: 'https://vera-movie.netlify.app/search',   // ← abre tu web
       repoUrl: 'https://github.com/verarv1999/Movie_library'
     },
     {
@@ -153,7 +175,6 @@ export class ProjectsComponent {
   others: Project[] = [];
 
   constructor() {
-    // Destacado: Portfolio. Cambia el orden si quieres destacar otro.
     this.featured = this.projects[0];
     this.others = this.projects.slice(1);
   }
