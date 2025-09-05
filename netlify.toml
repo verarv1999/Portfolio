@@ -3,7 +3,7 @@
   publish = "dist/portfolio/browser"  # <- carpeta correcta
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "22"
   NPM_FLAGS = "--legacy-peer-deps"
 
 # Plugin de Netlify para Angular (SSR/prerender)
