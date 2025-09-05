@@ -1,14 +1,17 @@
 [build]
   command = "npm ci --legacy-peer-deps && npm run build"
-  # ⬇️ pon aquí la carpeta que viste en dist/
-  publish = "dist/TU_CARPETA/browser"  # o "dist/TU_CARPETA" si no existe /browser
+  publish = "dist/portfolio/browser"  # <- carpeta correcta
 
 [build.environment]
   NODE_VERSION = "18"
   NPM_FLAGS = "--legacy-peer-deps"
 
-# SPA Angular: redirecciones al index.html
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Plugin de Netlify para Angular (SSR/prerender)
+[[plugins]]
+  package = "@netlify/angular-runtime"
+
+# Si NO usaras el plugin de arriba (build 100% estático), descomenta esto:
+# [[redirects]]
+#   from = "/*"
+#   to = "/index.html"
+#   status = 200
