@@ -155,7 +155,7 @@ import { PLATFORM_ID } from '@angular/core';
             class="h-44 sm:h-56 w-auto rounded-2xl object-cover border border-white/10"
             loading="lazy" decoding="async" />
           <figcaption class="mt-2 text-xs text-neutral-400 text-center">
-            {{ img.caption }}
+            
           </figcaption>
         </figure>
       </div>
@@ -185,7 +185,7 @@ import { PLATFORM_ID } from '@angular/core';
           class="max-h-[80vh] max-w-[90vw] w-auto h-auto
                  rounded-2xl border border-white/20 shadow-lg object-contain" />
         <figcaption class="mt-3 text-neutral-300 text-sm">
-          {{ images[selectedIndex!].caption }}
+      
         </figcaption>
       </figure>
     </div>
@@ -292,7 +292,7 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
 
   // Galería (2 fotos)
   images = [
-    { src: '/assets/about/shot-1.jpg', alt: 'Trabajo y apuntes', caption: 'Un poco de curro' },
-    { src: '/assets/about/shot-2.jpg', alt: 'Detalle de proyectos', caption: 'Proyectos y pruebas' }
+    { src: '/assets/about/shot-1.jpg', alt: 'Trabajo y apuntes' },
+    { src: '/assets/about/shot-2.jpg', alt: 'Detalle de proyectos' }
   ];
 }

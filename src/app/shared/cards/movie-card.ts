@@ -18,13 +18,13 @@ import { PLATFORM_ID } from '@angular/core';
       tabindex="0"
       aria-label="{{ title }}">
 
-      <!-- Imagen + overlay solo si hay imagen -->
+     
       <div class="relative">
         <img *ngIf="imageUrl" [src]="imageUrl" [alt]="title"
              class="block w-full h-full object-cover transition duration-300
                     group-hover:scale-[1.03] group-focus-within:scale-[1.03]" loading="lazy" />
 
-        <!-- Overlay indicativo SOLO si hay galería -->
+       
         <div *ngIf="gallery?.length"
              class="pointer-events-none absolute inset-0 flex items-center justify-center
                     bg-black/0 opacity-0 transition
@@ -65,7 +65,7 @@ import { PLATFORM_ID } from '@angular/core';
       </div>
     </article>
 
-    <!-- Modal: abrir enlace externo -->
+    
     <div *ngIf="showConfirm()" class="fixed inset-0 z-[100] flex items-center justify-center" role="dialog" aria-modal="true">
       <div class="absolute inset-0 bg-black/60" (click)="cancelConfirm()"></div>
       <div class="relative mx-4 w-full max-w-md rounded-2xl border border-white/10 bg-neutral-900 p-6 shadow-xl">
@@ -82,7 +82,7 @@ import { PLATFORM_ID } from '@angular/core';
       </div>
     </div>
 
-    <!-- GALERÍA -->
+    
     <div *ngIf="showGallery()" class="fixed inset-0 z-[90] flex items-center justify-center" role="dialog" aria-modal="true">
       <div class="absolute inset-0 bg-black/80" (click)="closeGallery()"></div>
 
@@ -119,13 +119,13 @@ export class MovieCardComponent implements OnDestroy {
   @Input() tech: string[] = [];
   @Input() imageUrl?: string;
 
-  /** Puedes pasar `websiteUrl` o `demoUrl` por compatibilidad */
+  
   @Input() websiteUrl?: string;
   @Input() demoUrl?: string;
 
   @Input() repoUrl?: string;
 
-  // Usamos el que llegue, priorizando websiteUrl
+
   get externalUrl(): string | undefined {
     return this.websiteUrl ?? this.demoUrl ?? undefined;
   }

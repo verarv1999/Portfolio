@@ -2,10 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* =========================
-   THEME SYSTEM
-   ========================= */
-/* Tema por defecto (Midnight Ocean) */
+/* === Variables globales === */
 :root {
   --bg: 224 25% 7%;
   --panel: 228 24% 12%;
@@ -13,13 +10,13 @@
   --muted: 220 10% 70%;
   --border: 220 14% 22%;
 
-  --accent: 199 94% 53%;   /* cyan eléctrico */
-  --accent-2: 262 85% 60%; /* violeta */
+  --accent: 199 94% 53%;
+  --accent-2: 262 85% 60%;
 
   --radius: 16px;
 }
 
-/* ROYAL GRAPE */
+/* ROYAL */
 [data-theme="royal"]{
   --bg: 265 35% 7%;
   --panel: 270 29% 12%;
@@ -41,7 +38,7 @@
   --accent-2: 326 92% 62%;
 }
 
-/* EMERALD NOIR */
+/* EMERALD */
 [data-theme="emerald"]{
   --bg: 160 28% 6%;
   --panel: 160 22% 11%;
@@ -52,10 +49,11 @@
   --accent-2: 210 92% 56%;
 }
 
+/* === Global === */
 html { color-scheme: dark; scroll-behavior: smooth; }
 html, body { height: 100%; }
+
 body {
-  /* Fondo fuerte con gradientes + grano sutil */
   background:
     radial-gradient(1000px 600px at -10% -20%, hsl(var(--accent)/.20), transparent 60%),
     radial-gradient(900px 500px at 110% 0%, hsl(var(--accent-2)/.18), transparent 60%),
@@ -66,7 +64,6 @@ body {
   position: relative;
 }
 body::after{
-  /* ruido suave para textura (sin imagen externa) */
   content:"";
   pointer-events:none;
   position:fixed; inset:0;
@@ -75,7 +72,6 @@ body::after{
   mix-blend-mode: soft-light; opacity:.25;
 }
 
-/* Accesibilidad */
 ::selection { background: hsl(var(--accent)/.35); color: hsl(var(--text)); }
 *:focus-visible {
   outline: none;
@@ -90,9 +86,7 @@ body::after{
 *::-webkit-scrollbar { width: 10px; height: 10px; }
 *::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 999px; }
 
-/* =========================
-   BASE TYPO
-   ========================= */
+/* === Tailwind layers === */
 @layer base {
   h1,h2,h3 { letter-spacing: -0.02em; }
   h1 { @apply text-4xl md:text-5xl font-black; }
@@ -101,14 +95,9 @@ body::after{
   p  { @apply leading-relaxed text-neutral-300; }
 }
 
-/* =========================
-   COMPONENTES
-   ========================= */
 @layer components {
-  /* contenedor */
   .section { @apply mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8; }
 
-  /* HERO vistoso */
   .hero {
     border-radius: 28px;
     border: 1px solid hsl(var(--border));
@@ -119,7 +108,6 @@ body::after{
     @apply p-8 md:p-14 shadow-[0_20px_60px_rgba(0,0,0,.35)];
   }
 
-  /* card glass marcada */
   .card {
     @apply rounded-3xl p-6 md:p-8 border;
     background: linear-gradient(180deg, hsl(var(--panel)/.95), hsl(var(--panel)/.85));
@@ -128,20 +116,18 @@ body::after{
     box-shadow: 0 12px 40px hsl(0 0% 0% / .35);
   }
 
-  /* borde degradado real (sin imágenes) */
   .gradient-border { position: relative; border-radius: var(--radius); }
   .gradient-border::before {
     content:"";
     position:absolute; inset:0; border-radius:inherit; padding:1px;
     background: linear-gradient(90deg, hsl(var(--accent)), hsl(var(--accent-2)));
-    -webkit-mask: 
-      linear-gradient(#000 0 0) content-box, 
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
       linear-gradient(#000 0 0);
     -webkit-mask-composite: xor; mask-composite: exclude;
     pointer-events:none;
   }
 
-  /* botones */
   .btn { @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 font-semibold transition; }
   .btn-primary {
     @apply btn text-neutral-900;
@@ -156,7 +142,6 @@ body::after{
   }
   .btn:disabled { @apply opacity-50 cursor-not-allowed; }
 
-  /* inputs/textarea (versión “pro”) */
   .input, .textarea {
     @apply w-full rounded-2xl px-4 py-3 border outline-none transition;
     background: linear-gradient(180deg, hsl(var(--panel)), hsl(var(--panel)/.85));
@@ -167,16 +152,11 @@ body::after{
     box-shadow: 0 0 0 4px hsl(var(--accent)/.22);
   }
 
-  /* chips */
   .chip { @apply text-xs px-3 py-1 rounded-full border; background:hsl(var(--panel)); border-color:hsl(var(--border)); }
 
-  /* KPIs */
   .kpi { @apply rounded-2xl p-4 border text-center; background:hsl(var(--panel)); border-color:hsl(var(--border)); }
 }
 
-/* =========================
-   UTILIDADES EXTRA
-   ========================= */
 @layer utilities {
   .text-gradient{
     background: linear-gradient(90deg, hsl(var(--text)), hsl(var(--text)/.65));
