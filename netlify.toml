@@ -1,17 +1,13 @@
 [build]
   command = "npm ci --legacy-peer-deps && npm run build"
-  publish = "dist/portfolio/browser"  # <- carpeta correcta
+  publish = "dist/portfolio/browser"   # ajusta 'portfolio' si tu carpeta dist tiene otro nombre
 
 [build.environment]
   NODE_VERSION = "22"
   NPM_FLAGS = "--legacy-peer-deps"
 
-# Plugin de Netlify para Angular (SSR/prerender)
-[[plugins]]
-  package = "@netlify/angular-runtime"
-
-# Si NO usaras el plugin de arriba (build 100% estático), descomenta esto:
-# [[redirects]]
-#   from = "/*"
-#   to = "/index.html"
-#   status = 200
+# Angular SPA fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
